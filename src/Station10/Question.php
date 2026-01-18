@@ -11,5 +11,10 @@ class Question
 
     private function getAnimalName(string $animal): string
     {
+        return match ($animal) {
+            '猫' => 'ミケ',
+            '犬' => 'ポチ',
+            default => 'わかりません',
+        };
     }
 }

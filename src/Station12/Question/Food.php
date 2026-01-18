@@ -2,7 +2,20 @@
 
 namespace Src\Station12\Question;
 
+use Carbon\CarbonImmutable;
+
 class Food extends Product
 {
-    // property はアクセス修飾子・型定義不問、 __construct での定義でなくとも良い
+    public function __construct(int $originalPrice, private CarbonImmutable $useByDate)
+    {
+        parent::__construct($originalPrice);
+    }
+
+    public function price(): int
+    {
+        if ($this->useByDate->lt(CarbonImmutable::now()->addHours(5))) {
+            return (int)floor($this->originalPrice / 2);
+        }
+        return $this->originalPrice;
+    }
 }
